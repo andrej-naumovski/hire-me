@@ -42,6 +42,7 @@
             {
                 "functions": "never"
             }
-        ]
+        ],
+        "operator-linebreak": "off"
     }
 }
