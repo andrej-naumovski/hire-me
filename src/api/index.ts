@@ -29,3 +29,10 @@ export const fetchChildrenList =
 
       return data.children;
     });
+
+export const checkInChild =
+    withDefaultErrorMessage<[string, string], void>(async (childId: string, pickupTime: string) => {
+      await famlyInstance.post(`/v2/children/${childId}/checkins`, {
+        pickupTime
+      });
+    });
