@@ -1,77 +1,33 @@
-# Interested in working for Famly?
+# Hire-me project app
 
-Give us a chance to see your beautiful code! 🤩
+This project uses the create-react-app package to bootstrap a React application with the Typescript template and uses Yarn for package management.
 
-## How to get started
-- Fork this repository
-- Create a small application in React (or another agreed upon framework)
-- Describe your design decisions and setup instructions in the README.md of the forked repository
+## Environment setup
 
-## The assignment
-You are tasked to build a simple application for a nursery to manage the attendance of children each day.
+There are a few steps needed to be taken before running the app in development mode.
 
-The application should be able to do 3 things:
-1. List children with some form of pagination/lazy-loading/infinite-scroll
-2. Checkin a child
-3. Checkout a child
+### Environment variables
 
-Don't worry about design or anything like that.
+This repository contains an `env.example` file which lists all of the needed environment variables. Copy that file and rename the new one to `.env`, and then add the missing values for the variables.
 
-If you have any questions feel free to reach out to the person who sent you the assignment ☺️
+### Installing dependencies
 
-## API Specification
-
-You have received an access token in the email that contained the link to this page.
-
-### Fetch some children from
-
-The API does not support any limit or offset, so the pagination/lazy-loading/infinite-scroll will have to be done client-side only.
+In order to run the application you first need to install the dependencies using Yarn. Run the following command in your terminal:
 
 ```
-GET https://app.famly.co/api/daycare/tablet/group
-Arguments: {
-	accessToken: <accessToken>,
-	groupId: '86413ecf-01a1-44da-ba73-1aeda212a196',
-	institutionId: 'dc4bd858-9e9c-4df7-9386-0d91e42280eb'
-}
+yarn
 ```
 
-Example in cURL:
+### Starting the development app
 
-```bash
-curl "https://app.famly.co/api/daycare/tablet/group?accessToken=<accessToken>&groupId=86413ecf-01a1-44da-ba73-1aeda212a196&institutionId=dc4bd858-9e9c-4df7-9386-0d91e42280eb"
-```
+After installing dependencies, you can run `yarn start` which spins up a development server, and your application will be located at `localhost:3000`.
 
-### Checkin child
-```
-POST https://app.famly.co/api/v2/children/<childId>/checkins
+## Design decisions
 
-Arguments: {
-	accessToken: <accessToken>
-	pickupTime: 16:00
-}
-```
+This project uses React 18 as the core UI library. It uses Material-UI as the design system. MUI provides tons of ready UI components out of the box, specifically a very nifty and easy-to-use date/time picker which is necessary for our specific use case.
 
-Example in cURL:
+It uses react-query in combination with React hooks and axios for API calls. React-query comes with great caching capabilities as well as manually being able to invalidate cach and refetch data when an API call succeeds/fails - which makes it very easy to refetch the updated children list once a child has been checked in/checked out.
 
-```bash
-curl \
-  -d 'accessToken=<accessToken>&pickupTime=16:00' \
-  https://app.famly.co/api/v2/children/fcd683d0-bc31-468c-948f-1ca70b91439d/checkins
-```
+For the modal state, which is global and should be accessible everywhere around the application, it uses React Context in lieu of some state management tool like Redux. Context already comes with React out of the box, is more lightweight and doesn't require extra dependencies, making it perfect for something as small.
 
-### Checkout child
-```
-POST https://app.famly.co/api/v2/children/<childId>/checkout
-Arguments: {
-	accessToken: <accessToken>
-}
-```
-
-Example in cURL:
-
-```bash
-curl \
-  -d 'accessToken=<accessToken>' \
-  https://app.famly.co/api/v2/children/fcd683d0-bc31-468c-948f-1ca70b91439d/checkout
-```
+Modals and other global elements (like error alerts) are rendered using React Portals. This allows us to keep these global elements outside of the main component tree.
