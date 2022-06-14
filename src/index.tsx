@@ -3,12 +3,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import App from './App';
+import { ModalContextProvider } from './context/modal';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 const theme = createTheme({
   palette: {
+    mode: 'dark',
     background: {
       default: '#1A202C'
     },
@@ -22,12 +24,14 @@ const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ModalContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </QueryClientProvider>
+    </ModalContextProvider>
   </React.StrictMode>
 );
 

@@ -12,6 +12,8 @@ famlyInstance.interceptors.request.use((config) => {
     config.params.accessToken = process.env.REACT_APP_ACCESS_TOKEN;
   } else {
     // eslint-disable-next-line no-param-reassign
+    config.data = config.data ?? {};
+    // eslint-disable-next-line no-param-reassign
     config.data.accessToken = process.env.REACT_APP_ACCESS_TOKEN;
   }
 
