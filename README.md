@@ -26,8 +26,8 @@ After installing dependencies, you can run `yarn start` which spins up a develop
 
 This project uses React 18 as the core UI library. It uses Material-UI as the design system. MUI provides tons of ready UI components out of the box, specifically a very nifty and easy-to-use date/time picker which is necessary for our specific use case.
 
-It uses react-query in combination with React hooks and axios for API calls. React-query comes with great caching capabilities as well as manually being able to invalidate cach and refetch data when an API call succeeds/fails - which makes it very easy to refetch the updated children list once a child has been checked in/checked out.
+It uses react-query in combination with React hooks and axios for API calls. React-query comes with great caching capabilities as well as manually being able to invalidate cache and refetch data when an API call succeeds/fails - which makes it very easy to refetch the updated children list once a child has been checked in/checked out.
 
-For the modal state, which is global and should be accessible everywhere around the application, it uses React Context in lieu of some state management tool like Redux. Context already comes with React out of the box, is more lightweight and doesn't require extra dependencies, making it perfect for something as small.
+For the modal state, which is global and should be accessible everywhere around the application, it uses React Context in lieu of some state management tool, like Redux. Context already comes with React out of the box, is more lightweight and doesn't require extra dependencies, making it perfect for something as small.
 
 Modals and other global elements (like error alerts) are rendered using React Portals. This allows us to keep these global elements outside of the main component tree.
