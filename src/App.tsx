@@ -1,10 +1,10 @@
 import { Box, Container } from '@mui/material';
-import ChildList from './components/ChildList';
+import ChildrenList from './components/ChildrenList';
 
 const App = () => (
   <Container maxWidth="lg">
     <Box m={6}>
-      <ChildList />
+      <ChildrenList />
     </Box>
   </Container>
 );

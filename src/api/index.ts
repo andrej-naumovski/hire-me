@@ -19,20 +19,29 @@ famlyInstance.interceptors.request.use((config) => {
 });
 
 export const fetchChildrenList =
-    withDefaultErrorMessage(async () => {
-      const { data } = await famlyInstance.get<{ children: Array<Child> }>('/daycare/tablet/group', {
-        params: {
-          groupId: '86413ecf-01a1-44da-ba73-1aeda212a196',
-          institutionId: 'dc4bd858-9e9c-4df7-9386-0d91e42280eb'
-        }
-      });
-
-      return data.children;
+  withDefaultErrorMessage(async () => {
+    const { data } = await famlyInstance.get<{ children: Array<Child> }>('/daycare/tablet/group', {
+      params: {
+        groupId: '86413ecf-01a1-44da-ba73-1aeda212a196',
+        institutionId: 'dc4bd858-9e9c-4df7-9386-0d91e42280eb'
+      }
     });
 
+    return data.children;
+  });
+
 export const checkInChild =
-    withDefaultErrorMessage<[string, string], void>(async (childId: string, pickupTime: string) => {
+  withDefaultErrorMessage<[{ childId: string, pickupTime: string }], void>(
+    async ({ childId, pickupTime }) => {
       await famlyInstance.post(`/v2/children/${childId}/checkins`, {
         pickupTime
       });
-    });
+    }
+  );
+
+export const checkOutChild =
+  withDefaultErrorMessage<[string], void>(
+    async (childId) => {
+      await famlyInstance.post(`v2/children/${childId}/checkout`);
+    }
+  );
